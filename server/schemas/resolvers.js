@@ -43,12 +43,12 @@ const resolvers = {
             return { token, user };
 
         },
-        saveBook: async (parent, body, context) => {
+        saveBook: async (parent, { input }, context) => {
             if (context.user) {         
 
               const updatedUser = await User.findByIdAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { savedBooks : body } },
+                { $addToSet: { savedBooks : input } },
                 { new: true }
               ).poplulate('savedBooks');
       
